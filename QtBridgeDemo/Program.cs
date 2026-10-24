@@ -1,30 +1,13 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using Qt.Quick;
-
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace QtBridgeDemo;
 
 [QmlElement(Name = "Counter", Singleton = true)]
-public class CounterService : INotifyPropertyChanged
+public partial class CounterService : ObservableObject
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    private int _clicks = 0;
-    public int Clicks
-    {
-        get => _clicks;
-        set
-        {
-            if (_clicks == value)
-                return;
-            _clicks = value;
-            OnPropertyChanged();
-        }
-    }
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? name = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+    [ObservableProperty]
+    public partial int Clicks { get; set; }
 }
 
 public class Program
