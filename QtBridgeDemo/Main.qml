@@ -1,4 +1,4 @@
-﻿import QtQuick
+import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
@@ -41,6 +41,19 @@ ApplicationWindow {
                 color: "white"
                 wrapMode: Text.WordWrap
             }
+
+            ListView {
+                id: listView
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                model: Counter.items
+                delegate: Text {
+                    required property string item
+                    text: item
+                    font.pixelSize: 16
+                    color: "white"
+                }
+            }
         }
 
         Button {
@@ -73,7 +86,12 @@ ApplicationWindow {
                 elide: Text.ElideRight
             }
 
-            onClicked: Counter.clicks += 1
+            // onClicked: Counter.clicks += 1
+
+            onClicked: {
+                Counter.clicks += 1
+                Counter.addRandomItem()
+            }
         }
     }
 }
